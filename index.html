@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OLAXBT – AI Data Layer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #4962cf;
+      background: linear-gradient(135deg, #a3bedf, #dfe9f9);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Background video */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .video-bg video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.85);
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      position: fixed;
+      top: 20px; left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      z-index: 10;
+    }
+    .logo img {
+      height: 40px;
+    }
+    nav a {
+      margin-left: 20px;
+      display: inline-block;
+    }
+    nav img {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+      filter: invert(1);
+    }
+    nav a:hover img {
+      transform: scale(1.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 140px 20px 60px;
+      z-index: 2;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 25px;
+      color: #111;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #444;
+      max-width: 700px;
+      margin-bottom: 40px;
+    }
+    .primary_button {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .primary_button:hover {
+      border-color: #d3207f;
+      box-shadow: 0 0 12px rgba(231, 20, 133, 0.6);
+      color: #E6007A;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+      margin-top: 40px;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      transition: transform .3s ease, box-shadow .3s ease;
+      text-align: left;
+    }
+    .feature:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .feature h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: #222;
+      margin-bottom: 12px;
+      position: relative;
+      display: inline-block;
+    }
+    .feature h3::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #6a5acd, #E6007A);
+      transition: width .3s ease;
+    }
+    .feature:hover h3::after {
+      width: 100%;
+    }
+    .feature p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .sitemap a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #222;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .sitemap a:hover {
+      color: #E6007A;
+    }
+    .copy {
+      margin-top: 10px;
+      color: #555;
+      font-size: 0.8rem;
+    }
+
+    @media(max-width: 900px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media(max-width: 600px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <div class="video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="Olaxbt.mp4" type="video/mp4">
+      <source src="Olaxbt.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="OlaXBT_Logo_Horizontal_white.png" alt="OLAXBT Logo">
+    </div>
+    <nav>
+      <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram"></a>
+      <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub"></a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>AI Data Layer</h1>
+    <p>Atomic · Velocity · Quant · Trust — powering the next generation of AI blockchain data infrastructure.</p>
+    <a href="#" class="primary_button">Get Started</a>
+
+    <div class="features">
+      <div class="feature">
+        <h3>Atomic</h3>
+        <p>Production Ready · Patented Redefinement Engine · Preprocessed, normalized, verifiable</p>
+      </div>
+      <div class="feature">
+        <h3>Velocity</h3>
+        <p>Speed to Signal · 25% quicker fetch · Faster retrieval and cleaner signals</p>
+      </div>
+      <div class="feature">
+        <h3>Quant</h3>
+        <p>Advanced Quant Tools · 70-80% effort reduction · Built for research and execution</p>
+      </div>
+      <div class="feature">
+        <h3>Trust</h3>
+        <p>Security and Auditability · Reliability uplift · ZK proofs, anchored audits</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="sitemap">
+      <a href="#">Doc</a>
+      <a href="#">OLAXBT</a>
+      <a href="#">Careers</a>
+    </div>
+    <p class="copy">© 2025 OLAXBT – All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
